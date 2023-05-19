@@ -6,14 +6,17 @@ class ReviewsController < ApplicationController
   end
 
   def create
-    # On récupère le formulaire
-    @review = Review.new(set_params)
     # On trouve le resto correspondant
     @restaurant = Restaurant.find(params[:restaurant_id])
+    # On récupère le formulaire
+    @review = Review.new(set_params)
     # On associe la review avec le resto
     @review.restaurant = @restaurant
-    @review.save
-    redirect_to restaurant_path(@restaurant)
+    if @review.save
+      redirect_to restaurant_path(@restaurant)
+    else
+      render 'restaurants/show', status: :unprocessable_entity
+    end
   end
 
   private

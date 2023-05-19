@@ -14,7 +14,9 @@ class RestaurantsController < ApplicationController
   end
 
   def show
+    # On a besoin de récupérer les variables @restaurant et @review
     @restaurant = Restaurant.find(params[:id])
+    @review = Review.new
   end
 
   private
